@@ -28,15 +28,26 @@
 <script>
   "use strict";
 
-  let num = parseInt(prompt('Введите целое положительное число для разложения'));
-  // let numItems, numDecades, numHundreds;
-  let numItems = num % 10;
-  let numDecades = Math.floor((num % 100) / 10);
-  let numHundreds = Math.floor(num / 100);
-  /*Не вполне согласен с примером 3 - если дальше не рассматриваем, то сотен 
-  должно быть 95. В связи с этим сотни не обрезаю до 1-го знака.*/
+  const num = Number.parseInt(prompt('Введите целое положительное число для \
+  разложения'));
+  let num_tmp = num;  // Из этой переменной будем отщипывать по 1му знаку
+  
+  // Выделили единицы, остальное сохранили для дальнейшей обработки
+  const numItems = num % 10;
+  num_tmp = Math.trunc(num_tmp / 10);
+  
+  // Выделили десятки, остальное сохранили для дальнейшей обработки
+  const numDecades = num_tmp % 10;
+  num_tmp = Math.trunc(num_tmp / 10);
+
+  // Выделили сотни, остальное сохранили на всякий случай
+  const numHundreds = num_tmp % 10;
+  // По ДЗ более старшие разряды нас не интересуют
+  num_tmp = Math.trunc(num_tmp / 10);
+
   alert(`Состав числа ${num}: \n- сотен: ${numHundreds} \
-  \n- десятков: ${numDecades} \n- единиц: ${numItems}`);
+  \n- десятков: ${numDecades} \n- единиц: ${numItems} \
+  \n(справочно - старших разрядов: ${num_tmp})`);
 </script>
 </body>
 </html>

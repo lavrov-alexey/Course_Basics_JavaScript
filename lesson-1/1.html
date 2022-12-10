@@ -22,9 +22,13 @@
 <script>
   "use strict";
 
-  let tempInCels = parseFloat(prompt('Введите температуру в градусах Цельсия:'));
-  let tempInFargt = (9 / 5) * tempInCels + 32;
-  alert(`Температура по Фаренгейту составляет  ${tempInFargt}  градусов`);
+  // Как вариант можно превратить в число проще: +prompt(...)
+  const tempInCels = Number.parseFloat(prompt('Введите температуру в градусах \
+  Цельсия:'));
+  const tempInFargt = (9 / 5) * tempInCels + 32;
+  // Важно, что метод num.toFixed() дает на выходе не число, а строку!
+  alert(`Температура по Цельсию: ${tempInCels.toFixed(1)} градусов, \
+  по Фаренгейту: ${tempInFargt.toFixed(1)} градусов`);
 </script>
 </body>
 </html>
