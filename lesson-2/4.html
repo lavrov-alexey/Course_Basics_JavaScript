@@ -31,7 +31,33 @@
 <script>
   "use strict";
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+  function twoNumsSum(firstNum, secondNum) {  //function declaration
+    return firstNum + secondNum;
+  }
+
+  let twoNumsDifference = function(firstNum, secondNum) {  //function expression
+    return firstNum >= secondNum ? firstNum - secondNum : secondNum - firstNum;
+  }
+
+  let twoNumsMultiply = (firstNum, secondNum) => firstNum * secondNum;
+
+  let twoNumsDivision = (numDivisible, numDivider) => numDivisible / numDivider;
+
+  const firstNum = +prompt('Введите число a:');
+  const secondNum = +prompt('Введите число b:');
+
+  const sumAB = twoNumsSum(firstNum, secondNum);
+  const difAB = twoNumsDifference(firstNum, secondNum);
+  const mulAB = twoNumsMultiply(firstNum, secondNum);
+  const divAB = twoNumsDivision(firstNum, secondNum);
+
+  alert(`Демонстрация работы с функциями.
+  Введены числа: a = ${firstNum}, b = ${secondNum}\n
+  Сумма: а + b = ${sumAB}
+  Разность: ${firstNum >= secondNum ? 'a - b' : 'b - a'} = ${difAB}
+  Произведение: a * b = ${mulAB}
+  Деление: a / b = ${divAB.toFixed(4)}`);
+
 </script>
 </body>
 </html>
