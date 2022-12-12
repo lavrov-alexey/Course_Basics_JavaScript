@@ -32,7 +32,79 @@ Infinity делать не нужно, однако, в случае если б
 <script>
   "use strict";
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+  /**
+   * Возвращает сумму двух переданных в параметрах чисел
+   * @param {number} firstNum - Первое число для сложения
+   * @param {number} secondNum - Второе число для сложения
+   * @return {number} - Сумма двух переданных на вход чисел
+   */
+   function twoNumsSum(firstNum, secondNum) {  //function declaration
+    return firstNum + secondNum;
+  }
+
+  /**
+   * Возвращает разность бОльшего и меньшего из 2x переданных в параметрах 
+   * чисел, последовательность передачи чисел в параметрах - неважна.
+   * @param {number} firstNum - Первое число для рассчета разности
+   * @param {number} secondNum - Второе число для рассчета разности
+   * @return {number} - Разность бОльшего и меньшего из двух переданных 
+   * на вход чисел
+   */
+  let twoNumsDifference = function(firstNum, secondNum) {  //function expression
+    return firstNum >= secondNum ? firstNum - secondNum : secondNum - firstNum;
+  }
+
+  /**
+   * Возвращает произведение двух переданных в параметрах чисел
+   * @param {number} firstNum - Первое число для умножения
+   * @param {number} secondNum - Второе число для умножения
+   * @return {number} - Произведение двух переданных на вход чисел
+   */
+  let twoNumsMultiply = (firstNum, secondNum) => firstNum * secondNum;
+
+  /**
+   * Возвращает частное двух переданных в параметрах чисел - делимого и делителя
+   * @param {number} numDivisible - Делимое
+   * @param {number} numDivider - Делитель
+   * @return {number} - Частное от деления делимого на делитель
+   */
+  let twoNumsDivision = (numDivisible, numDivider) => numDivisible / numDivider;
+
+  /**
+   * Возвращает результат переданной математической операции [+, -, *, /] над 
+   * двумя из переданных в параметрах чисел
+   * @param {number} arg1 - Первый операнд
+   * @param {number} arg2 - Второй операнд
+   * @param {string} operation - Оператор математической операции [+, -, *, /]
+   * @return {number} - Результат выполнения переданого математического 
+   * оператора над переданными операндами
+   */
+  function mathOperation(arg1, arg2, operation) {
+    switch(operation) {
+      case '+':
+        return twoNumsSum(arg1, arg2);
+      
+      case '-':
+        return twoNumsDifference(arg1, arg2);
+
+      case '*':
+        return twoNumsMultiply(arg1, arg2);
+
+      case '/':
+        return twoNumsDivision(arg1, arg2);
+
+      default:
+        return NaN;
+    }
+  };
+
+  // Блок тестов
+  console.log(mathOperation(5, 3, "+")); // 8
+  console.log(mathOperation(3, 8, "-")); // 5
+  console.log(mathOperation(3, 8, "*")); // 24
+  console.log(mathOperation(4, 8, "/")); // 0.5
+  console.log(mathOperation(5, 3, ":)")); // NaN
+
 </script>
 </body>
 </html>
