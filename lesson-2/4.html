@@ -49,7 +49,7 @@
    * @return {number} - Разность бОльшего и меньшего из двух переданных 
    * на вход чисел
    */
-  let twoNumsDifference = function(firstNum, secondNum) {  //function expression
+  const twoNumsDifference = function(firstNum, secondNum) {  //function expression
     return firstNum >= secondNum ? firstNum - secondNum : secondNum - firstNum;
   }
 
@@ -59,7 +59,7 @@
    * @param {number} secondNum - Второе число для умножения
    * @return {number} - Произведение двух переданных на вход чисел
    */
-  let twoNumsMultiply = (firstNum, secondNum) => firstNum * secondNum;
+  const twoNumsMultiply = (firstNum, secondNum) => firstNum * secondNum;
 
   /**
    * Возвращает частное двух переданных в параметрах чисел - делимого и делителя
@@ -67,7 +67,8 @@
    * @param {number} numDivider - Делитель
    * @return {number} - Частное от деления делимого на делитель
    */
-  let twoNumsDivision = (numDivisible, numDivider) => numDivisible / numDivider;
+  const twoNumsDivision = (numDivisible, numDivider) => // fat arrow function
+  numDivisible / numDivider;
 
   const firstNum = +prompt('Введите число a:');
   const secondNum = +prompt('Введите число b:');

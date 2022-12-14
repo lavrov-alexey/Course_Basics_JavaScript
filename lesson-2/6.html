@@ -34,7 +34,6 @@ console.log(declinationOfNumber(5, "стул", "стула", "стульев"));
    * @return {string} - Корректная форма склонения для переданного количества
    */
   function declinationOfNumber(count, oneForm, twoForm, fiveForm) {
-    
     const twoLastDigits = count % 100;
 
     if (twoLastDigits >= 11 && twoLastDigits <= 19) {
@@ -50,7 +49,6 @@ console.log(declinationOfNumber(5, "стул", "стула", "стульев"));
     } else {
       return fiveForm;
     }
-   
   }
 
   // Число яблок, можно пробовать поставить свое целое, положительное число.

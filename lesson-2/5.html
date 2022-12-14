@@ -83,20 +83,16 @@ Infinity делать не нужно, однако, в случае если б
     switch(operation) {
       case '+':
         return twoNumsSum(arg1, arg2);
-      
       case '-':
         return twoNumsDifference(arg1, arg2);
-
       case '*':
         return twoNumsMultiply(arg1, arg2);
-
       case '/':
         return twoNumsDivision(arg1, arg2);
-
       default:
         return NaN;
     }
-  };
+  }
 
   // Блок тестов
   console.log(mathOperation(5, 3, "+")); // 8
