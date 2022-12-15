@@ -8,8 +8,8 @@
 <!--
 Обязательное задание.
 
-Необходимо из объекта, который лежит в константе post вывести значения, к
-которым приписан комментарий, в консоль.
+Необходимо из объекта, который лежит в константе post вывести значения, 
+к которым приписан комментарий, в консоль.
 -->
 <script>
   "use strict";
@@ -39,7 +39,23 @@
     ],
   };
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+  const firstQuickAccess = post.author
+  const secondQuickAccess = post.comments[0].rating.dislikes
+  const thirdQuickAccess = post.comments[1].userId
+  const fourthQuickAccess = post.comments[1].text
+
+  console.log(`post.author - значение: "${firstQuickAccess}",\
+  тип значения: "${typeof firstQuickAccess}"`);
+
+  console.log(`post.comments[0].rating.dislikes - значение:\
+  "${secondQuickAccess}", тип значения: "${typeof secondQuickAccess}"`);
+
+  console.log(`post.comments[1].userId - значение:\
+  "${thirdQuickAccess}", тип значения: "${typeof thirdQuickAccess}"`);
+
+  console.log(`post.comments[1].text - значение:\
+  "${fourthQuickAccess}", тип значения: "${typeof fourthQuickAccess}"`);
+
 </script>
 </body>
 </html>
