@@ -25,7 +25,13 @@ xxxxx
 <script>
   "use strict";
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+  const requiredHeight = 20;  // требуемая высота "горки"
+  const usedChar = 'x';  // символ, который будет использоваться для "горки"
+
+  for (let step=1; step <= requiredHeight; step++) {
+    console.log(usedChar.repeat(step));
+  }
+
 </script>
 </body>
 </html>
