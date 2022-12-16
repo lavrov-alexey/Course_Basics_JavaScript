@@ -44,7 +44,36 @@
     },
   ];
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+  console.log('Исходный список products:');
+  products.forEach(function(product, idx) {
+    console.log(idx, product);
+  });
+
+  // Создадим список продуктов с фотографиями
+  const productsWithPhotos = products.filter(function(product) {
+    return product?.photos?.length > 0;
+  });
+ // и выведем его в консоль
+  console.log('Список products с фотографиями:');
+  productsWithPhotos.forEach(function(product) {
+    console.log(product);
+  });
+
+  /**
+   * Для использования в методе products.sort по возрастанию цен
+   */
+  function sortPriceASC(product1, product2) {
+    if (product1?.price > product2?.price) return 1;
+    if (product1?.price === product2?.price) return 0;
+    if (product1?.price < product2?.price) return -1;
+  }
+
+  products.sort(sortPriceASC);  // сортируем массив продуктов на месте
+  console.log('Отсортированный по возраст. цен список products:');
+  products.forEach(function(product, idx) {
+    console.log(idx, product);
+  });
+
 </script>
 </body>
 </html>
