@@ -30,14 +30,12 @@
   ];
 
   console.log("Объект products до корректировки:");  
-  products.forEach((item) => console.log(item));
+  products.forEach((product) => console.log(product));
 
   const discount = 0.15;
+  products.forEach((product) => product.price -= product.price * discount);
   console.log(`Объект products после дисконта цен на ${(discount*100)}%:`);
-  products.forEach((item) => {
-    item.price -= item.price * discount;
-    console.log(item);
-  });
+  products.forEach((product) => console.log(product));
   
 </script>
 </body>
