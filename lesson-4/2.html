@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Необязательное задание, но желательно сделать.
+
+Необходимо данное задание выполнить в es5 стиле и в es6 стиле.
+Необходимо создать функцию-конструктор/класс для поста в социальной сети.
+Названия: `PostES5` для es5 стиля и `PostES6` для es6 стиля.
+Пост должен хранить:
+1. Автора поста (имени достаточно).
+2. Текст поста.
+3. Дату и время последнего изменения поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Каждому экземпляру объекта должен быть доступен метод `edit`, который будет
+менять текст поста.
+
+---
+
+Необходимо создать функцию-конструктор/класс для закрепленного поста в
+социальной сети.
+Названия: `AttachedPostES5` для es5 стиля и `AttachedPostES6` для es6 стиля.
+Закрепленный пост должен наследоваться от обычного поста.
+Данные автора поста и текст поста необходимо передавать при создании
+экземпляра объекта.
+Закрепленный пост должен иметь свойство `highlighted`, в котором по умолчанию
+будет лежать значение false (это свойство будет обозначать, будет ли наш
+закрепленный пост подсвечен).
+У экземпляров объекта закрепленного поста должен быть метод с названием
+`makeTextHighlighted`, который сделает так, чтобы наш пост стал подсвеченным
+(будет менять свойство `highlighted`).
+
+---
+
+Подсказки:
+1. Задание сложное, советую делать по аналогии с примером на онлайн-занятии.
+2. Обратите внимание что пост хранит "дату и время последнего изменения
+поста", это значит что если пост кто-то изменит (например вызовет какой-то
+метод, который изменит что-то в посте), дата и время последнего изменения
+поста также должна измениться.
+3. Выполняйте все по порядку, не стоит пытаться сделать все сразу, иначе можно
+что-нибудь пропустить.
+4. Если непонятно условие - задайте вопрос.
+-->
+<script>
+  "use strict";
+
+  // ES5 style констуктор
+  function PostES5(authorName, massageText) {
+    this.authorName = authorName;
+    this.massageText = massageText;
+    this.createdAt = new Date();  // сохраняем текущую дату, время
+    this.updatedAt = this.createdAt;  // сюда пока тоже
+  }
+
+  /**
+   * Возвращает строку с перечислением текущих полей объекта PostES5
+   */
+  PostES5.prototype.sayFullInfo = function() {
+    return `Сообщение: "${this.massageText}"\nАвтор: ${this.authorName}\
+    \nСоздано:  ${this.createdAt.toLocaleDateString()}\
+    ${this.createdAt.toLocaleTimeString()}\
+    \nИзменено: ${this.updatedAt.toLocaleDateString()}\
+    ${this.updatedAt.toLocaleTimeString()}`;
+  }
+
+  /**
+   * Изменяет текст сообщения на переданное в параметре, а также фиксирует
+   * дату и время внесения изменения в соотв. поле объекта PostES5
+   */
+  PostES5.prototype.edit = function(newMassageText) {
+    this.massageText = newMassageText;
+    this.updatedAt = new Date();
+  }
+
+  // создаем первое сообщение и выводим его с исп. встроенного метода
+  const massage1 = new PostES5('JustGod', 'In the begining was the word...');
+  console.log(`Ориг. сообщение:\n${massage1.sayFullInfo()}`);
+  
+  // встроенным методом корректируем сообщение и выводим его
+  massage1.edit('In the beginning was the word, and the word was with God, and\
+  the word was God.');
+  console.log(`\nРед. сообщение:\n${massage1.sayFullInfo()}`);
+
+  // Конструктор для создания закрепленного поста
+  function AttachedPostES5(authorName, massageText, highlighted = false) {
+    PostES5.call(this, authorName, massageText);
+    this.highlighted = highlighted;
+  }
+
+  // наследуемся от обычного поста
+  AttachedPostES5.prototype = Object.create(PostES5.prototype);
+  AttachedPostES5.prototype.constructor = AttachedPostES5;
+
+  /**
+   * Делает сообщение выделенным (меняет свойство highlighted)
+   */
+  AttachedPostES5.prototype.makeTextHighlighted = function() {
+    this.highlighted = true;
+  }
+
+  /**
+   * Возвращает строку с перечислением текущих полей объекта AttachedPostES5 на
+   * основании обычного сообщения с добавлением поля highlighted
+   */
+  AttachedPostES5.prototype.sayAttFullInfo = function() {
+    return `${this.sayFullInfo()}\nВыделение: ${this.highlighted}`
+  }
+
+  // создаем закрепл. сообщение и выводим его с исп. встроенного метода
+  const myAttachedPostES5 = new AttachedPostES5('AnotherGod',
+  'In the beginning was the Word...');
+  console.log(`\nОриг. закрепл. сообщение:\
+  \n${myAttachedPostES5.sayAttFullInfo()}`);
+  //редактируем закрепл. сообщение, выделяем и выводим его
+  myAttachedPostES5.edit('In the beginning was the Word, in the end, world\
+  without end.');
+  myAttachedPostES5.makeTextHighlighted();
+  console.log(`\nРед. закрепл. сообщение:\
+  \n${myAttachedPostES5.sayAttFullInfo()}`);
+  console.log(`\nРед. закрепл. сообщение (вывод для обычн. сообщения):\
+  \n${myAttachedPostES5.sayFullInfo()}`);
+
+</script>
+</body>
+</html>
