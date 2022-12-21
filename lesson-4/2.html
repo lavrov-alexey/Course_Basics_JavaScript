@@ -135,8 +135,7 @@
 
   // ********* ES6 STYLE *********
 
-  // ES6 style констуктор
-  
+  // класс сообщения ES6 style
   class PostES6 {
     constructor(authorName, massageText) {
       this.authorName = authorName;
@@ -164,57 +163,50 @@
       \nСоздано:  ${this.createdAt.toLocaleDateString()}\
       ${this.createdAt.toLocaleTimeString()}\
       \nИзменено: ${this.updatedAt.toLocaleDateString()}\
-      ${this.updatedAt.toLocaleTimeString()}`;
+      ${this.updatedAt.toLocaleTimeString()}\
+      \nСтиль объекта: ${this.styleObj}`;
     }
   }
 
-
-  
   // создаем первое сообщение и выводим его с исп. встроенного метода
-  const massage1 = new PostES5('JustGod', 'In the begining was the word...');
-  console.log(`Ориг. сообщение:\n${massage1.sayFullInfo()}`);
+  const massage2 = new PostES6('LazyOne', 'Lazy text...');
+  console.log(`Ориг. сообщение:\n${massage2.sayFullInfo()}`);
   
   // встроенным методом корректируем сообщение и выводим его
-  massage1.edit('In the beginning was the word, and the word was with God, and\
-  the word was God.');
-  console.log(`\nРед. сообщение:\n${massage1.sayFullInfo()}`);
+  massage2.edit('Laziest text');
+  console.log(`\nРед. сообщение:\n${massage2.sayFullInfo()}`);
 
-  // Конструктор для создания закрепленного поста
-  function AttachedPostES5(authorName, massageText, highlighted = false) {
-    PostES5.call(this, authorName, massageText);
-    this.highlighted = highlighted;
-  }
+  // Класс для создания закрепленного поста ES6 style
+  class AttachedPostES6 extends PostES6{
+    constructor (authorName, massageText, highlighted = false) {
+      super(authorName, massageText);
+      this.highlighted = highlighted;
+    }
 
-  // наследуемся от обычного поста
-  AttachedPostES5.prototype = Object.create(PostES5.prototype);
-  AttachedPostES5.prototype.constructor = AttachedPostES5;
+    /**
+    * Делает сообщение выделенным (меняет свойство highlighted)
+    */
+    static makeTextHighlighted() {
+      this.highlighted = true;
+    }
 
-  /**
-   * Делает сообщение выделенным (меняет свойство highlighted)
-   */
-  AttachedPostES5.prototype.makeTextHighlighted = function() {
-    this.highlighted = true;
-  }
-
-  /**
-   * Возвращает строку с перечислением текущих полей объекта AttachedPostES5 на
-   * основании обычного сообщения с добавлением поля highlighted
-   */
-  AttachedPostES5.prototype.sayAttFullInfo = function() {
-    return `${this.sayFullInfo()}\nВыделение: ${this.highlighted}`
+    /**
+     * Возвращает строку с перечислением текущих полей объекта AttachedPostES6 на основании обычного сообщения с добавлением поля highlighted
+     */
+    static sayAttFullInfo() {
+      return `${this.sayFullInfo()}\nВыделение: ${this.highlighted}`
+    }
   }
 
   // создаем закрепл. сообщение и выводим его с исп. встроенного метода
-  const myAttachedPostES5 = new AttachedPostES5('AnotherGod',
-  'In the beginning was the Word...');
+  const myAttachedPostES6 = new AttachedPostES6('AnotherLazy', 'Message by LL');
   console.log(`\nОриг. закрепл. сообщение:\
-  \n${myAttachedPostES5.sayAttFullInfo()}`);
+  \n${myAttachedPostES6.sayAttFullInfo()}`);
   //редактируем закрепл. сообщение, выделяем и выводим его
-  myAttachedPostES5.edit('In the beginning was the Word, in the end, world\
-  without end.');
-  myAttachedPostES5.makeTextHighlighted();
+  myAttachedPostES6.edit('...');
+  myAttachedPostES6.makeTextHighlighted();
   console.log(`\nРед. закрепл. сообщение:\
-  \n${myAttachedPostES5.sayAttFullInfo()}`);
+  \n${myAttachedPostES6.sayAttFullInfo()}`);
   console.log(`\nРед. закрепл. сообщение (вывод для обычн. сообщения):\
   \n${myAttachedPostES5.sayFullInfo()}`);
 
