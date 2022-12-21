@@ -50,6 +50,8 @@
 <script>
   "use strict";
 
+  // ********* ES5 STYLE *********
+
   // ES5 style констуктор
   function PostES5(authorName, massageText) {
     this.authorName = authorName;
@@ -58,15 +60,19 @@
     this.updatedAt = this.createdAt;  // сюда пока тоже
   }
 
+  PostES5.styleObj = 'ES6';
+
   /**
    * Возвращает строку с перечислением текущих полей объекта PostES5
    */
   PostES5.prototype.sayFullInfo = function() {
-    return `Сообщение: "${this.massageText}"\nАвтор: ${this.authorName}\
+    return `Сообщение: "${this.massageText}"\
+    \nАвтор: ${this.authorName}\
     \nСоздано:  ${this.createdAt.toLocaleDateString()}\
     ${this.createdAt.toLocaleTimeString()}\
     \nИзменено: ${this.updatedAt.toLocaleDateString()}\
-    ${this.updatedAt.toLocaleTimeString()}`;
+    ${this.updatedAt.toLocaleTimeString()}\
+    \nСтиль объекта: ${this.styleObj}`;
   }
 
   /**
@@ -78,6 +84,92 @@
     this.updatedAt = new Date();
   }
 
+  // создаем первое сообщение и выводим его с исп. встроенного метода
+  const massageES5_1 = new PostES5('JustGod', 'In the begining was the word...');
+  console.log(`Ориг. сообщение:\n${massageES5_1.sayFullInfo()}`);
+  
+  // встроенным методом корректируем сообщение и выводим его
+  massageES5_1.edit('In the beginning was the word, and the word was with God,\
+  and the word was God.');
+  console.log(`\nРед. сообщение:\n${massageES5_1.sayFullInfo()}`);
+
+  // Конструктор для создания закрепленного поста
+  function AttachedPostES5(authorName, massageText, highlighted = false) {
+    PostES5.call(this, authorName, massageText);
+    this.highlighted = highlighted;
+  }
+
+  // наследуемся от обычного поста
+  AttachedPostES5.prototype = Object.create(PostES5.prototype);
+  AttachedPostES5.prototype.constructor = AttachedPostES5;
+
+  /**
+   * Делает сообщение выделенным (меняет свойство highlighted)
+   */
+  AttachedPostES5.prototype.makeTextHighlighted = function() {
+    this.highlighted = true;
+  }
+
+  /**
+   * Возвращает строку с перечислением текущих полей объекта AttachedPostES5 на
+   * основании обычного сообщения с добавлением поля highlighted
+   */
+  AttachedPostES5.prototype.sayAttFullInfo = function() {
+    return `${this.sayFullInfo()}\nВыделение: ${this.highlighted}`
+  }
+
+  // создаем закрепл. сообщение и выводим его с исп. встроенного метода
+  const myAttachedPostES5 = new AttachedPostES5('AnotherGod',
+  'In the beginning was the Word...');
+  console.log(`\nОриг. закрепл. сообщение:\
+  \n${myAttachedPostES5.sayAttFullInfo()}`);
+  //редактируем закрепл. сообщение, выделяем и выводим его
+  myAttachedPostES5.edit('In the beginning was the Word, in the end, world\
+  without end.');
+  myAttachedPostES5.makeTextHighlighted();
+  console.log(`\nРед. закрепл. сообщение:\
+  \n${myAttachedPostES5.sayAttFullInfo()}`);
+  console.log(`\nРед. закрепл. сообщение (вывод для обычн. сообщения):\
+  \n${myAttachedPostES5.sayFullInfo()}`);
+
+
+  // ********* ES6 STYLE *********
+
+  // ES6 style констуктор
+  
+  class PostES6 {
+    constructor(authorName, massageText) {
+      this.authorName = authorName;
+      this.massageText = massageText;
+      this.createdAt = new Date();  // сохраняем текущую дату, время
+      this.updatedAt = this.createdAt;  // сюда пока тоже
+    }
+
+    static styleObj = 'ES6';
+
+    /**
+     * Изменяет текст сообщения на переданное в параметре, а также фиксирует
+     * дату и время внесения изменения в соотв. поле объекта PostES6
+     */
+    edit(newMassageText) {
+      this.massageText = newMassageText;
+      this.updatedAt = new Date();
+    }
+
+    /**
+     * Возвращает строку с перечислением текущих полей объекта PostES6
+     */
+    static sayFullInfo() {
+      return `Сообщение: "${this.massageText}"\nАвтор: ${this.authorName}\
+      \nСоздано:  ${this.createdAt.toLocaleDateString()}\
+      ${this.createdAt.toLocaleTimeString()}\
+      \nИзменено: ${this.updatedAt.toLocaleDateString()}\
+      ${this.updatedAt.toLocaleTimeString()}`;
+    }
+  }
+
+
+  
   // создаем первое сообщение и выводим его с исп. встроенного метода
   const massage1 = new PostES5('JustGod', 'In the begining was the word...');
   console.log(`Ориг. сообщение:\n${massage1.sayFullInfo()}`);
