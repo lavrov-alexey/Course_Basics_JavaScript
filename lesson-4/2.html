@@ -86,7 +86,7 @@
 
   // создаем первое сообщение и выводим его с исп. встроенного метода
   const massageES5_1 = new PostES5('JustGod', 'In the begining was the word...');
-  console.log(`Ориг. сообщение:\n${massageES5_1.sayFullInfo()}`);
+  console.log(`\nОриг. сообщение:\n${massageES5_1.sayFullInfo()}`);
   
   // встроенным методом корректируем сообщение и выводим его
   massageES5_1.edit('In the beginning was the word, and the word was with God,\
@@ -137,14 +137,14 @@
 
   // класс сообщения ES6 style
   class PostES6 {
+    styleObj = 'ES6';
+
     constructor(authorName, massageText) {
       this.authorName = authorName;
       this.massageText = massageText;
       this.createdAt = new Date();  // сохраняем текущую дату, время
       this.updatedAt = this.createdAt;  // сюда пока тоже
     }
-
-    styleObj = 'ES6';
 
     /**
      * Изменяет текст сообщения на переданное в параметре, а также фиксирует
@@ -186,7 +186,7 @@
     /**
     * Делает сообщение выделенным (меняет свойство highlighted)
     */
-    static makeTextHighlighted() {
+    makeTextHighlighted() {
       this.highlighted = true;
     }
 
@@ -194,8 +194,8 @@
      * Возвращает строку с перечислением текущих полей объекта AttachedPostES6 
      * на основании обычного сообщения с добавлением поля highlighted
      */
-    static sayAttFullInfo() {
-      return `${this.sayFullInfo}\nВыделение: ${this.highlighted}`
+    sayAttFullInfo() {
+      return `${this.sayFullInfo()}\nВыделение: ${this.highlighted}`
     }
   }
 
@@ -205,7 +205,7 @@
   \n${myAttachedPostES6.sayAttFullInfo()}`);
   //редактируем закрепл. сообщение, выделяем и выводим его
   myAttachedPostES6.edit('...');
-  myAttachedPostES6.makeTextHighlighted;
+  myAttachedPostES6.makeTextHighlighted();
   console.log(`\nРед. закрепл. сообщение:\
   \n${myAttachedPostES6.sayAttFullInfo()}`);
   console.log(`\nРед. закрепл. сообщение (вывод для обычн. сообщения):\
