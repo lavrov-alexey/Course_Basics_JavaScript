@@ -30,8 +30,35 @@
 -->
 <script>
   "use strict";
+  /**
+   * Возвращает объект с составом числа (в диапазоне от minNum до maxNum), 
+   * из переданной на вход строки
+   * 
+   */
+  function getNumParts(numStr) {
+    const num = Number.parseInt(numStr);  // преобразуем строку в число
+    const minNum = 0, maxNum = 999;
+    if (Number.isInteger(num) && (num >= minNum) && (num <= maxNum)) {
+      return {
+      hundreds: Math.trunc((num % 1000) / 100),
+      dozens: Math.trunc((num % 100) / 10),
+      units: num % 10
+      }    
+    }
+    console.error(`Ожидалось целое число из диапазона ${minNum}-${maxNum},\
+ а получено: ${num}`);
+      return {};
+  }
 
-  // Здесь пишем решение, данный комментарий необходимо стереть.
+  const numStr = prompt('Введите целое число в диапазоне\
+  от 0 до 999 включительно (введенная строка будет преобразована в целое)');
+  const numParts = getNumParts(numStr);
+  if (JSON.stringify(numParts) === '{}') {
+    console.warn('Что-то пошло не так (см. выше)...');
+  } else {
+    console.info(`Состав числа ${Number.parseInt(numStr)}:`);
+    console.table(numParts);
+  }
 </script>
 </body>
 </html>
