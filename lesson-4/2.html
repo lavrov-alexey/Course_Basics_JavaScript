@@ -88,15 +88,17 @@
   const massageES5_1 = new PostES5('JustGod', 'In the begining was the word...');
   console.log(`\nОриг. сообщение:\n${massageES5_1.sayFullInfo()}`);
   
-  // встроенным методом корректируем сообщение и выводим его
-  massageES5_1.edit('In the beginning was the word, and the word was with God,\
-  and the word was God.');
-  console.log(`\nРед. сообщение:\n${massageES5_1.sayFullInfo()}`);
-
+  // встроенным методом корректируем сообщение и выводим его через 1 секунды
+  setTimeout(() => {
+    massageES5_1.edit('In the beginning was the word, and the word was with God, and the word was God.');
+    console.log(`\nРед. сообщение:\n${massageES5_1.sayFullInfo()}`);
+  }, 1000);
+  
   // Конструктор для создания закрепленного поста
-  function AttachedPostES5(authorName, massageText, highlighted = false) {
+  function AttachedPostES5(authorName, massageText) {
+    //чтобы унаследоваться - нужно вызвать констуктор предка с нашим контекстом
     PostES5.call(this, authorName, massageText);
-    this.highlighted = highlighted;
+    this.highlighted = false;
   }
 
   // наследуемся от обычного поста
@@ -107,7 +109,8 @@
    * Делает сообщение выделенным (меняет свойство highlighted)
    */
   AttachedPostES5.prototype.makeTextHighlighted = function() {
-    this.highlighted = true;
+    this.highlighted = true;  // выставляем выделение
+    this.updatedAt = new Date();  // и корректируем дату обновления
   }
 
   /**
@@ -123,16 +126,18 @@
   'In the beginning was the Word...');
   console.log(`\nОриг. закрепл. сообщение:\
   \n${myAttachedPostES5.sayAttFullInfo()}`);
-  //редактируем закрепл. сообщение, выделяем и выводим его
-  myAttachedPostES5.edit('In the beginning was the Word, in the end, world\
-  without end.');
-  myAttachedPostES5.makeTextHighlighted();
-  console.log(`\nРед. закрепл. сообщение:\
-  \n${myAttachedPostES5.sayAttFullInfo()}`);
-  console.log(`\nРед. закрепл. сообщение (вывод для обычн. сообщения):\
-  \n${myAttachedPostES5.sayFullInfo()}`);
+  
+  //редактируем закрепл. сообщение, выделяем и выводим его через 2 сек.
+  setTimeout(() => {
+    myAttachedPostES5.edit('In the beginning was the Word, in the end, world without end.');
+    myAttachedPostES5.makeTextHighlighted();
+    console.log(`\nРед. закрепл. сообщение:\
+    \n${myAttachedPostES5.sayAttFullInfo()}`);
+    console.log(`\nРед. закрепл. сообщение (вывод для обычн. сообщения):\
+    \n${myAttachedPostES5.sayFullInfo()}`);
+  }, 2000);
 
-
+  
   // ********* ES6 STYLE *********
 
   // класс сообщения ES6 style
@@ -172,22 +177,27 @@
   const massage2 = new PostES6('LazyOne', 'Lazy text...');
   console.log(`\nОриг. сообщение:\n${massage2.sayFullInfo()}`);
   
-  // встроенным методом корректируем сообщение и выводим его
-  massage2.edit('Laziest text');
-  console.log(`\nРед. сообщение:\n${massage2.sayFullInfo()}`);
-
+  // встроенным методом корректируем сообщение и выводим его через 3 сек.
+  setTimeout(() => {
+    massage2.edit('Laziest text');
+    console.log(`\nРед. сообщение:\n${massage2.sayFullInfo()}`);
+  }, 3000);
+  
   // Класс для создания закрепленного поста ES6 style
   class AttachedPostES6 extends PostES6{
-    constructor (authorName, massageText, highlighted = false) {
+    highlighted = false;  // задаем св-во по-умолчанию для всего класса
+
+    /*констуктор не создаем, т.к. никаких новых параметров нет - будет использован констуктор класса PostES6, или можно вызвать его принудительно constructor (authorName, massageText) {
       super(authorName, massageText);
-      this.highlighted = highlighted;
     }
+    */
 
     /**
     * Делает сообщение выделенным (меняет свойство highlighted)
     */
     makeTextHighlighted() {
       this.highlighted = true;
+      this.updatedAt = new Date();
     }
 
     /**
@@ -203,13 +213,16 @@
   const myAttachedPostES6 = new AttachedPostES6('AnotherLazy', 'Msg by LL');
   console.log(`\nОриг. закрепл. сообщение:\
   \n${myAttachedPostES6.sayAttFullInfo()}`);
-  //редактируем закрепл. сообщение, выделяем и выводим его
-  myAttachedPostES6.edit('...');
-  myAttachedPostES6.makeTextHighlighted();
-  console.log(`\nРед. закрепл. сообщение:\
-  \n${myAttachedPostES6.sayAttFullInfo()}`);
-  console.log(`\nРед. закрепл. сообщение (вывод для обычн. сообщения):\
-  \n${myAttachedPostES6.sayFullInfo()}`);
+  
+  //редактируем закрепл. сообщение, выделяем и выводим его через 4 сек.
+  setTimeout(() => {
+    myAttachedPostES6.edit('...');
+    myAttachedPostES6.makeTextHighlighted();
+    console.log(`\nРед. закрепл. сообщение:\
+    \n${myAttachedPostES6.sayAttFullInfo()}`);
+    console.log(`\nРед. закрепл. сообщение (вывод для обычн. сообщения):\
+    \n${myAttachedPostES6.sayFullInfo()}`);
+  }, 4000);
 
 </script>
 </body>

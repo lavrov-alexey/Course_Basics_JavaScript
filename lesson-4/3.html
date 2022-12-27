@@ -33,36 +33,39 @@
   
   /**
    * Возвращает объект с составом числа (в диапазоне от minNum до maxNum), 
-   * из переданной на вход строки
-   * @param {string} numStr - Строка с целым числом для разбора на состав
-   * @return {object} - объект, содержащий состав числа, поля:
+   * из переданного на вход целого в заданном диапазоне
+   * @param {number} num - целое число для разбора на состав в зад. диапазоне
+   * @return {object} - объект, содержащий состав числа или пустой, поля:
    * hundreds: {number} - сотен в числе
    * dozens: {number} - десятков в числе
    * units: {number} - единиц в числе
    */
-  function getNumParts(numStr) {
-    const num = Number.parseInt(numStr);  // преобразуем строку в число
+  function getNumParts(num) {
     const minNum = 0, maxNum = 999;  // диапазон возможных чисел
-    if (Number.isInteger(num) && (num >= minNum) && (num <= maxNum)) {
-      return {
+    // проводим валидацию параметра и ругаемся, если не то
+    if (!Number.isInteger(num) || num < minNum || num > maxNum) {
+      console.error(`Ожидалось целое число из диапазона ${minNum}-${maxNum}, а получено: ${num}`);
+      return {};
+    }
+    // валидация пройдена - вычисляем
+    return {
       hundreds: Math.trunc((num % 1000) / 100),
       dozens: Math.trunc((num % 100) / 10),
       units: num % 10
-      }    
     }
-    console.error(`Ожидалось целое число из диапазона ${minNum}-${maxNum},\
- а получено: ${num}`);
-      return {};
   }
 
   const numStr = prompt('Введите целое число в диапазоне\
   от 0 до 999 включительно (введенная строка будет преобразована в целое)');
-  const numParts = getNumParts(numStr);
+  const num = Number.parseInt(numStr);  // пытаемся вытащить из введенного число
+  const numParts = getNumParts(num);
   if (JSON.stringify(numParts) === '{}') {
-    console.warn('Что-то пошло не так (см. выше)...');
+    console.warn(`Что-то пошло не так (см. выше) - введено "${numStr}"`);
   } else {
-    console.info(`Состав числа ${Number.parseInt(numStr)}:`);
-    console.table(numParts);
+    console.info(`Введено "${numStr}", состав числа ${num}:\
+    \n- сотни: ${numParts.hundreds}\
+    \n- десятки: ${numParts.dozens}\
+    \n- единицы: ${numParts.units}`);
   }
 </script>
 </body>

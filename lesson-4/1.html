@@ -28,32 +28,36 @@
 
   // добавляем в прототип метод для дисконта цены на 25%
   ProductES5.prototype.make25Discount = function() {
-    this.price *= .75
-  }
+    this.price *= .75;
+  }; // точка с запятой тут нужна, т.к. мы присваиваем функцию
 
   // создаем экземляр объекта
   const myES5Product = new ProductES5('Товар-1', 100);
-  console.log(`До дисконта ES5: ${myES5Product}`);  // до дисконта
+  console.log(`\nДо дисконта ES5.\
+  Товар: ${myES5Product.name}, цена: ${myES5Product.price}`);  // до дисконта
   myES5Product.make25Discount();
-  console.log(`После дисконта ES5: ${myES5Product}`);  // после дисконта
+  console.log(`После дисконта ES5.\
+  Товар: ${myES5Product.name}, цена: ${myES5Product.price}`);  // после дисконта
 
   // es6 создаем класс с данными и методом
   class ProductES6 {
-  constructor(name, price) {
-    this.name = name;
-    this.price = price;
-  }
+    constructor(name, price) {
+      this.name = name;
+      this.price = price;
+    }
 
-  make25Discount() {
-    this.price *= 0.75;
-  }
+    make25Discount() {
+      this.price *= 0.75;
+    }
   }
 
   // Создаем экземпляр объекта
   const myES6Product = new ProductES6('Товар-2', 777);
-  console.log(`До дисконта ES6: ${myES6Product}`);  // до дисконта
+  console.log(`\nДо дисконта ES6.\
+  Товар: ${myES6Product.name}, цена: ${myES6Product.price}`);  // до дисконта
   myES6Product.make25Discount();
-  console.log(`После дисконта ES6: ${myES6Product}`);  // после дисконта
+  console.log(`После дисконта ES6.\
+  Товар: ${myES6Product.name}, цена: ${myES6Product.price}`);  // после дисконта
   
 </script>
 </body>
