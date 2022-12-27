@@ -127,6 +127,18 @@
   /*
   7. С помощью JS необходимо изменить цвет заднего фона каждого второго тега li.
   */
+  const liEls = document.querySelectorAll('li');  // отбираем все li элементы
+  if (liEls) {
+    console.log('5.3.7. Цвет заднего фона каждого 2го тега li меняем через 3 секунды...');
+    setTimeout(() => {
+      for (let idx = 1; idx < liEls.length; idx += 2) {
+        liEls[idx].style.background = 'blue';
+      }
+      console.log('... цвет задника по п.5.3.7 изменен');
+    }, 3000);
+  } else {
+    console.log('Упс... Что-то не нашлось элементов li...');
+  }
 
 </script>
 </body>
