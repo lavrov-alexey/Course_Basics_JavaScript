@@ -105,6 +105,15 @@
   Необходимо использовать делегирование.
   */
   const ulEl = document.querySelector('ul');  // получаем эл-т
+  if (ulEl) {  // если эл-т найден
+    ulEl.addEventListener('click', (event) => {
+      if (event.target.nodeName === 'BUTTON') {
+        console.log(`5.3.5. Эл-т button, текст: ${event.target.innerText}`);
+      }
+    });
+  } else {
+    console.log('Упс. Что-то не нашлось эл-та "ul"');
+  }
 
   /*
   6. Вопрос: Почему в console.log пишется сначала текст из 5 задания и только
