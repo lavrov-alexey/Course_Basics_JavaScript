@@ -77,16 +77,25 @@
   которому был совершен клик.
   Необходимо использовать делегирование.
   */
+  // чтобы срабатывало на всех тегах - вешаем обработчик сразу на document
   document.addEventListener('click', (event) => {
+    // проверяем - есть ли у целевого эл-та нужный класс
     const isSuperElementCl = event.target.classList.contains('super_element');
-    console.log(`В элементе: "${event.target.localName}" - класс "super_element": ${isSuperElementCl ? 'есть' : 'нет'}`);
+    console.log(`5.3.3. В элементе: "${event.target.localName}" - класс "super_element": ${isSuperElementCl ? 'есть' : 'нет'}`);
   });
   
   /*
   4. Сделайте, чтобы при наведении на textarea в консоли появлялось сообщение:
   "Вы навели на textarea."
   */
-
+  const textAreaEl = document.querySelector('textarea');  // получаем эл-т
+  if (textAreaEl) {
+    textAreaEl.addEventListener('mouseover', (event) => {  // вешаем обработчик
+      console.log(`5.3.4. Вы навели на ${event.target.localName}`);
+    });
+  } else {
+    console.log('Упс. Что-то не нашлось эл-та "textarea"');
+  }
 
   /*
   5. Необходимо повесить событие клика на тег ul. В обработчике события в
@@ -94,8 +103,8 @@
   по которой был произведен клик.
   Если клик был не по кнопке, то ничего выводить не нужно.
   Необходимо использовать делегирование.
-   */
-
+  */
+  const ulEl = document.querySelector('ul');  // получаем эл-т
 
   /*
   6. Вопрос: Почему в console.log пишется сначала текст из 5 задания и только
@@ -106,7 +115,7 @@
 
   /*
   7. С помощью JS необходимо изменить цвет заднего фона каждого второго тега li.
-   */
+  */
 
 </script>
 </body>
