@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Обязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+<p class="dropdown">Привет :)</p>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" 
+    type="button" 
+    id="dropdownMenuButton" 
+    data-toggle="dropdown"
+    aria-haspopup="true" 
+    aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="menu dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
+
+<script>
+  "use strict";
+
+  console.warn('ДЗ-2 к Урок 5. Введение в DOM');
+
+  /*
+  1. Ко всем элементам, имеющим класс "dropdown-item" добавить еще один класс
+  "super-dropdown", необходимо использовать методы forEach и querySelectorAll и
+  свойство classList у элементов.
+  */
+  console.warn('\n1. Добавление ко всем элементам с классом "dropdown-item"\
+  доп. класса "super-dropdown"');
+  const dropdownItemEls = document.querySelectorAll('.dropdown-item');
+  if (dropdownItemEls) {  // если требуемый эл-т нашелся
+    console.log('Классы до добавления:');
+    dropdownItemEls.forEach((el) => {
+      console.log(el.classList)
+    });
+    // добавляем всем найденным элементам доп. класс
+    dropdownItemEls.forEach((dropdownItemEl) => {
+      dropdownItemEl.classList.add('super-dropdown')
+    });
+    console.log('Классы после добавления:');
+    dropdownItemEls.forEach((el) => {
+      console.log(el.classList)
+    });
+  } else {  // если требуемый эл-т не нашелся
+    console.warn('Упс... что-то не нашлось таких элементов...');
+  }
+
+  /*
+  2. У элемента с классом btn необходимо убрать класс "btn-secondary", если он
+  присутствует у этого элемента, либо добавить, если такого класса у элемента
+  не было.
+  */
+  console.warn('\n2. Добавляем (если не было) или убираем (если был) класс\
+  "btn-secondary" у элемента с классом "btn"');
+  const btnClassEl = document.querySelector('.btn');  // получаем эл-т с "btn"
+  if (btnClassEl) {  // если требуемый эл-т нашелся
+    console.log(`- классы до: ${btnClassEl.classList}`);
+    btnClassEl.classList.toggle('btn-secondary');  // ставим, либо снимаем класс
+    console.log(`- классы после: ${btnClassEl.classList}`);
+  } else {  // если требуемый эл-т не нашелся
+    console.warn('Упс... что-то не нашлось такого элемента...');
+  }
+
+  /*
+  3. Необходимо удалить класс "dropdown-menu" у элемента, у которого
+  присутствует класс "menu".
+  */
+  console.warn('\n3. Удаляем класс "dropdown-menu" у эл-та, у которого есть\
+  класс "menu"');
+  const menuClassEl = document.querySelector('.menu');  //получаем эл-т с menu
+  if (menuClassEl) {  // если требуемый эл-т нашелся
+    console.log(`- классы до: ${menuClassEl.classList}`);
+    // проверяем - есть ли класс и если есть - удаляем
+    if (menuClassEl.classList.contains('dropdown-menu'))
+      menuClassEl.classList.remove('dropdown-menu');
+    console.log(`- классы после: ${menuClassEl.classList}`);
+  } else {  // если требуемый эл-т не нашелся
+    console.warn('Упс... что-то не нашлось такого элемента...');
+  }
+
+  /*
+  4. Используя метод insertAdjacentHTML добавьте после div'a с классом
+  "dropdown" следующую разметку:
+    <a href="#">link</a>
+  */
+  console.warn('\n4. Добавляем после div с классом "dropdown" разметку\
+  <a href="#">link</a> через 3 секунды...');
+  const divDropdown = document.querySelector('div.dropdown'); // получаем нужный div
+  if (divDropdown) {  // если требуемый эл-т нашелся
+    setTimeout(() => {  // будем вставлять с задержкой 3 сек.
+      // вставляем готовую разметку после указанного div
+      divDropdown.insertAdjacentHTML('afterend', '<a href="#">link</a>');
+      console.warn('\n...готовая разметка по п.4 добавлена');
+    }, 3000);
+  } else {  // если требуемый эл-т не нашелся
+    console.warn('Упс... что-то не нашлось такого элемента...');
+  }
+  
+  /*
+  5. У элемента с id "dropdownMenuButton" замените id на "superDropdown".
+  */
+  console.warn('\n5. Элементу с id "dropdownMenuButton" меняем id на\
+  "superDropdown"');
+  const elForChangeId = document.querySelector('#dropdownMenuButton');
+  if (elForChangeId) {  // если требуемый эл-т нашелся
+    console.log(`- id до изменения: "${elForChangeId.id}"`);
+    elForChangeId.id = 'superDropdown';  // меняем idшку
+    console.log(`- id после изменения: "${elForChangeId.id}"`);
+  } else {  // если требуемый эл-т не нашелся
+    console.warn('Упс... что-то не нашлось такого элемента...');
+  }
+
+  /*
+  6. Добавьте атрибут data-dd со значением 3 элементу у которого существует
+  атрибут "aria-labelledby" равный "dropdownMenuButton" используя dataset.
+  */
+  console.warn('\n6. Элементу с атрибутом aria-labelledby="dropdownMenuButton"\
+  добавляем атрибут data-dd="3"');
+  const ariaLabelledByEl = 
+    document.querySelector('[aria-labelledby="dropdownMenuButton"]');
+  if (ariaLabelledByEl) {  // если требуемый эл-т нашелся
+    console.log(`- элементу с аттрибутом aria-labelledby:\
+    ${ariaLabelledByEl.getAttribute('aria-labelledby')}`);
+    ariaLabelledByEl.dataset.dd = '3';  // добавляем требуемый data-атрибут
+    console.log(`- добавлен атрибут data-dd: "${ariaLabelledByEl.dataset.dd}"`);
+  } else {  // если требуемый эл-т не нашелся
+    console.warn('Упс... что-то не нашлось такого элемента...');
+  }
+  
+  /*
+  7. Удалите атрибут type у элемента с классом "dropdown-toggle".
+  */
+  console.warn('\n7. Удаляем атрибут type у эл-та с классом "dropdown-toggle"');
+  const dropdownToggleEl = document.querySelector('.dropdown-toggle');
+  if (dropdownToggleEl) {  // если требуемый эл-т нашелся
+    console.log('- атрибуты до:');
+    for (let attr of dropdownToggleEl.attributes) console.log(attr);
+    dropdownToggleEl.removeAttribute('type');
+    console.log('- атрибуты после:');
+    for (let attr of dropdownToggleEl.attributes) console.log(attr);
+  } else {  // если требуемый эл-т не нашелся
+    console.warn('Упс... что-то не нашлось такого элемента...');
+  }
+
+  /*
+  8. Выведите в консоль все имеющиеся атрибуты и их значения тега у которого
+  есть все два класса btn и dropdown-toggle.
+  Вывод каждого атрибута и значений должен выглядеть следующим образом (пример):
+  Атрибут "class" содержит значение "btn btn-secondary dropdown-toggle"
+  */
+  console.warn('\n8. Все атрибуты и их значения элемента с классами\
+  btn и dropdown-toggle');
+  // ищем элемент с 2мя указанными классами
+  const twoClassesEl = document.querySelector('.btn.dropdown-toggle' );
+  if (twoClassesEl) {  // если требуемый эл-т нашелся
+    // attr, переменная в цикле не меняется, при каждой итерации создается новая
+    for (const attr of twoClassesEl.attributes) {
+      console.log(`- атрибут "${attr.name}" содержит значение "${attr.value}"`);
+    }
+  } else {  // если требуемый эл-т не нашелся
+    console.warn('Упс... что-то не нашлось такого элемента...');
+  }
+
+</script>
+</body>
+</html>

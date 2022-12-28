@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+<body>
+<!--
+Необязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+<p class="super_element">Привет</p>
+
+<img src="https://placeimg.com/50/50/animals" alt="">
+<img src="https://placeimg.com/50/50/arch" alt="">
+<img src="https://placeimg.com/50/50/nature" alt="">
+<img src="https://placeimg.com/50/50/people" alt="">
+<img src="https://placeimg.com/50/50/tech" alt="">
+<img src="https://placeimg.com/50/50/tech/grayscale" alt="">
+<img src="https://placeimg.com/50/50/tech/sepia" alt="">
+
+<br>
+
+<button>Кнопка</button>
+<button class="super_element">Кнопка с классом btn</button>
+<button>Кнопка</button>
+
+<br>
+
+<textarea></textarea>
+
+<br>
+
+<ul>
+  <li>
+    <button>Кнопка 1</button>
+  </li>
+  <li>
+    <button>Кнопка 2</button>
+  </li>
+  <li>
+    <button>Кнопка 3</button>
+  </li>
+  <li>
+    <button>Кнопка 4</button>
+  </li>
+</ul>
+
+<script>
+  "use strict";
+
+  /*
+  1. Необходимо вывести сообщение в консоль "все теги прогрузились", когда все
+  теги будут созданы браузером.
+  */
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('\n5.3.1. Все теги прогрузились (событие "DOMContentLoaded" у объекта document) - DOM готов!');
+  });
+
+  /*
+  2. Необходимо вывести сообщение в консоль "страница загрузилась", когда все
+  ресурсы страницы будут загружены.
+  */
+  window.addEventListener('load', () => {
+    console.log('5.3.2. Страница загрузилась полностью (событие "load" у объекта window) - вся страница, стили, картинки и др. внешние ресурсы загружены!');
+  });
+
+  /*
+  3. При клике на какой-либо тег на странице в консоль должно выводиться
+  сообщение наподобие:
+  Класс "super_element" присутствует в элементе "div".
+  сообщение должно определять присутствует или отсутствует класс "super_element"
+  у элемента, а также выводить в нижнем регистре верный тег в данной строке, по
+  которому был совершен клик.
+  Необходимо использовать делегирование.
+  */
+  // чтобы срабатывало на всех тегах - вешаем обработчик сразу на document
+  document.addEventListener('click', (event) => {
+    // проверяем - есть ли у целевого эл-та нужный класс
+    const isSuperElementCl = event.target.classList.contains('super_element');
+    console.log(`5.3.3. В элементе: "${event.target.localName}" - класс "super_element": ${isSuperElementCl ? 'есть' : 'нет'}`);
+  });
+  
+  /*
+  4. Сделайте, чтобы при наведении на textarea в консоли появлялось сообщение:
+  "Вы навели на textarea."
+  */
+  const textAreaEl = document.querySelector('textarea');  // получаем эл-т
+  if (textAreaEl) {
+    textAreaEl.addEventListener('mouseover', (event) => {  // вешаем обработчик
+      console.log(`5.3.4. Вы навели на ${event.target.localName}`);
+    });
+  } else {
+    console.log('Упс. Что-то не нашлось эл-та "textarea"');
+  }
+
+  /*
+  5. Необходимо повесить событие клика на тег ul. В обработчике события в
+  консоль необходимо выводить текст, который записан внутри элемента кнопки,
+  по которой был произведен клик.
+  Если клик был не по кнопке, то ничего выводить не нужно.
+  Необходимо использовать делегирование.
+  */
+  const ulEl = document.querySelector('ul');  // получаем эл-т
+  if (ulEl) {  // если эл-т найден
+    // вешаем обработчик на весь тег ul
+    ulEl.addEventListener('click', (event) => {
+      // проверяем, что внутри тега ul клик был именно по кнопке
+      if (event.target.nodeName === 'BUTTON') {
+        console.log(`5.3.5. Эл-т button, текст: ${event.target.innerText}`);
+      }
+    });
+  } else {
+    console.log('Упс. Что-то не нашлось эл-та "ul"');
+  }
+
+  /*
+  6. Вопрос: Почему в console.log пишется сначала текст из 5 задания и только
+  потом выводится текст из 3 задания, если мы кликаем по кнопкам в ul?
+  Ответ необходимо написать здесь же, под этим комментарием, своими словами.
+  */
+  /*Это связано с тем, что если не указано явно, то события события ловятся на этапе всплытия от более "глубокого" по DOM элемента (тег ul), а затем, поскольку мы не прерывали дальнейшего "всплытия" события - уже срабатывал обработчик на самом верху - document. Если нужно ловить на этапе погружения - нужно добавить в addEventListener третий аргумент true. Также при особой необходимости - можно прервать дальнейшее всплытие/погружение события - метод еvent.stopPropagation() или даже дальнейшую работу обработчиков (если есть) на текущем элементе - метод event.stopImmediatePropagation()*/
+
+  /*
+  7. С помощью JS необходимо изменить цвет заднего фона каждого второго тега li.
+  */
+  const liEls = document.querySelectorAll('li');  // отбираем все li элементы
+  if (liEls) {
+    console.log('5.3.7. Цвет заднего фона каждого 2го тега li меняем через 3 секунды...');
+    setTimeout(() => {
+      for (let idx = 1; idx < liEls.length; idx += 2) {
+        liEls[idx].style.background = 'blue';
+      }
+      console.log('... цвет задника по п.5.3.7 изменен');
+    }, 3000);
+  } else {
+    console.log('Упс... Что-то не нашлось элементов li...');
+  }
+
+</script>
+</body>
+</html>
