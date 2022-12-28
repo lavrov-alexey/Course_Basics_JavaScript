@@ -59,29 +59,24 @@
   3. Найти все элементы на странице с классом "card-link", которые лежат в
   элементе с классом "card-body" и вывести полученную коллекцию в консоль.
    */
-  const cardBodyEl = document.querySelector('.card-body');
-  const cardLinkInCardBodyEls = cardBodyEl.querySelectorAll('.card-link');
+  // ищем все элементы с 2мя требуемыми классами
+   const cardBodyLinkEls = document.querySelectorAll('.card-body .card-link');
   console.log('\n3. Все элементы с классом "card-link" из элемента с классом\
   "card-body":');
-  cardLinkInCardBodyEls.forEach((el) => console.log(el));
+  cardBodyLinkEls.forEach((el) => console.log(el));
   
   /*
   4. Найти первый попавшийся элемент на странице у которого есть атрибут
   data-number со значением 50 и вывести его в консоль.
    */
-  const dataNumberEls = document.querySelectorAll('[data-number]');
-  let dataNumberEl = null;
-  for (dataNumberEl of dataNumberEls) {
-    if (dataNumberEl.dataset.number === '50') break;
-  }
+  const dataNumberEl = document.querySelector('[data-number="50"]');
   console.log('\n4. Первый элемент на странице с атрибутом data-number = 50:');
   console.log({dataNumberEl});
 
   /*
   5. Выведите содержимое тега title в консоль.
    */
-  const titleText = document.querySelector('title');
-  console.log(`\n5. Содержимое тега title: "${titleText.textContent}"`);
+  console.log(`\n5. Содержимое тега title: "${document.title}"`);
 
   /*
   6. Получите элемент с классом "card-title" и выведите его родительский узел
@@ -89,7 +84,7 @@
    */
   const cardTitleEl = document.querySelector('.card-title');
   console.log('\n6. Родительский узел элемента с классом "card-title":');
-  console.log(cardTitleEl.parentElement);
+  console.log(cardTitleEl.parentElement); // или .parentNode
 
   /*
   7. Создайте тег `p`, запишите внутри него текст "Привет" и добавьте созданный
@@ -106,13 +101,11 @@
   8. Удалите тег h6 на странице.
    */
   const h6El = document.querySelector('h6');
-  console.log(`\n8. Удаляем тег h6 с текстом: "${h6El.textContent}" на странице\
-  через 3 секунды...`);
+  console.log(`\n8. Удаляем тег h6 с текстом: "${h6El.textContent}" на странице через 3 секунды...`);
   setTimeout(() => {
-    h6El.remove();
-    console.log('...тег h6 по п.8 с задержкой удален!');
+      h6El.remove();
+      console.log('...тег h6 по п.8 с задержкой удален!');
     }, 3000);
-  
   
 </script>
 </body>

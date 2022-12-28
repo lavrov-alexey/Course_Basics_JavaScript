@@ -44,12 +44,17 @@
   const dropdownItemEls = document.querySelectorAll('.dropdown-item');
   if (dropdownItemEls) {  // если требуемый эл-т нашелся
     console.log('Классы до добавления:');
-    dropdownItemEls.forEach((el) => console.log(el.classList));
+    dropdownItemEls.forEach((el) => {
+      console.log(el.classList)
+    });
     // добавляем всем найденным элементам доп. класс
-    dropdownItemEls.forEach((dropdownItemEl) => 
-      dropdownItemEl.classList.add('super-dropdown'));
+    dropdownItemEls.forEach((dropdownItemEl) => {
+      dropdownItemEl.classList.add('super-dropdown')
+    });
     console.log('Классы после добавления:');
-    dropdownItemEls.forEach((el) => console.log(el.classList));
+    dropdownItemEls.forEach((el) => {
+      console.log(el.classList)
+    });
   } else {  // если требуемый эл-т не нашелся
     console.warn('Упс... что-то не нашлось таких элементов...');
   }
@@ -64,12 +69,7 @@
   const btnClassEl = document.querySelector('.btn');  // получаем эл-т с "btn"
   if (btnClassEl) {  // если требуемый эл-т нашелся
     console.log(`- классы до: ${btnClassEl.classList}`);
-    // проверяем - есть ли такой класс у элемента
-    if (btnClassEl.classList.contains('btn-secondary')) {
-      btnClassEl.classList.remove('btn-secondary'); // есть - удаляем его
-    } else {
-      btnClassEl.classList.add('btn-secondary');  // нет - добавляем его
-    };
+    btnClassEl.classList.toggle('btn-secondary');  // ставим, либо снимаем класс
     console.log(`- классы после: ${btnClassEl.classList}`);
   } else {  // если требуемый эл-т не нашелся
     console.warn('Упс... что-то не нашлось такого элемента...');
@@ -149,7 +149,7 @@
   if (dropdownToggleEl) {  // если требуемый эл-т нашелся
     console.log('- атрибуты до:');
     for (let attr of dropdownToggleEl.attributes) console.log(attr);
-    dropdownToggleEl.attributes.removeNamedItem('type');  // удаляем атрибут
+    dropdownToggleEl.removeAttribute('type');
     console.log('- атрибуты после:');
     for (let attr of dropdownToggleEl.attributes) console.log(attr);
   } else {  // если требуемый эл-т не нашелся
@@ -167,7 +167,8 @@
   // ищем элемент с 2мя указанными классами
   const twoClassesEl = document.querySelector('.btn.dropdown-toggle' );
   if (twoClassesEl) {  // если требуемый эл-т нашелся
-    for (let attr of twoClassesEl.attributes) {
+    // attr, переменная в цикле не меняется, при каждой итерации создается новая
+    for (const attr of twoClassesEl.attributes) {
       console.log(`- атрибут "${attr.name}" содержит значение "${attr.value}"`);
     }
   } else {  // если требуемый эл-т не нашелся
