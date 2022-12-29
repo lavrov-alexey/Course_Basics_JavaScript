@@ -42,6 +42,19 @@
   /*
   1. Установите всем элементам с классом "productName" размер шрифта 24px.
    */
+  // находим все эл-ты с нужным классом
+  const productNamesEls = document.querySelectorAll('.productName');
+  if (productNamesEls) {
+    productNamesEls.forEach(productNamesEl => {
+    productNamesEl.style.fontSize = '24px';
+    });
+    //for (const productNamesEl of productNamesEls) {
+    //  productNamesEl.style.fontSize = '24px';
+    //};
+  } else {
+    console.error('Упс... Элементов с классом "productName" не нашлось!');
+  }
+  
 
 
   /*
