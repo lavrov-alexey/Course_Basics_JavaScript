@@ -54,13 +54,16 @@
   } else {
     console.error('Упс... Элементов с классом "productName" не нашлось!');
   }
-  
-
 
   /*
   2. Установите всем элементам с классом "product" внешний отступ справа 50px.
    */
-
+  const productEls = document.querySelectorAll('.product');
+  for (const productEl of productEls) {
+    console.log(productEl.style.marginRight);
+    productEl.style.marginRight = '50px'
+    console.log(productEl.style.marginRight);
+  }
 
   /*
   3. При клике на кнопку "В корзину" название кнопки должно поменяться на
