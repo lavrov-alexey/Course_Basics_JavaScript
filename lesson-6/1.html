@@ -43,14 +43,14 @@
   1. Установите всем элементам с классом "productName" размер шрифта 24px.
   */
   // находим все эл-ты с нужным классом
-  console.log('6.1.1. Устанавливаем всем эл-там с классом "productName" размер шрифта 24px через 3 секунды...');
+  console.log('6.1.1. Устанавливаем всем эл-там с классом "productName" размер шрифта 24px через 1 секунду...');
   const productNamesEls = document.querySelectorAll('.productName');
   if (productNamesEls) {  //если эл-ты нашлись
     setTimeout(() => {
       productNamesEls.forEach(productNamesEl => {
         productNamesEl.style.fontSize = '24px';
       });  
-    }, 2000);
+    }, 1000);
     console.info(`...по п.6.1.1. эл-там с классом "productName" шрифт изменен`);
 
     // альтернативный forEach вариант
@@ -64,14 +64,14 @@
   /*
   2. Установите всем элементам с классом "product" внешний отступ справа 50px.
   */
-  console.log('6.1.2. Устанавливаем всем эл-там с классом "product" внешний отступ справа 50px через 4 секунды...');
+  console.log('6.1.2. Устанавливаем всем эл-там с классом "product" внешний отступ справа 50px через 1,5 секунды...');
   const productEls = document.querySelectorAll('.product');
   if (productEls) {  //если такие эл-ты нашлись
     setTimeout(() => {
       for (const productEl of productEls) {
         productEl.style.marginRight = '50px';    
       };
-    }, 4000);
+    }, 1500);
     console.info(`...по п.6.1.2. эл-там с классом "product" внешний отступ справа выставлен!`);
   } else {
     console.error('Упс... Элементов с классом "product" не нашлось!');
@@ -116,13 +116,13 @@
     console.log(`- ссылка на картинку в копии изменена: ${imgTagInto.src}`);
     console.log('- меняем название товара в копии на "Товар 4"');
     deepCloneEl.children[0].innerText = 'Товар 4';
-    console.log('- последний товар заменяем нашей копией через 8 секунд...');
+    console.log('- последний товар заменяем нашей копией через 5 секунд...');
     setTimeout(() => {
       //теперь заменим последний эл-т нашим скопированным и измененным эл-том
       //при этом размер шрифта останется старым и обработчика на кнопке не будет
       lastProduct.replaceWith(deepCloneEl);
       console.info('...по п.6.1.4. последний эл-т заменен');
-    }, 8000);        
+    }, 5000);        
   } else {
     console.error('Упс... Элемента с классом "product" не нашлось!');
   }
@@ -131,8 +131,14 @@
   5. По истечении 2 секунд с момента открытия страницы первый товар должен быть
   удален из html.
   */
-
-
+  console.log('6.1.5. Первый товар будет удален через 2 секунды после открытия страницы...');
+  window.onload = () => {  //ждем полной загрузки страницы по ТЗ
+    setTimeout(() => {  //и через 2 сек. удаляем 1й эл-т
+    productClassEls[0].remove();
+    }, 2000);
+   console.info('...по п.6.1.5. первый товар удален'); 
+  };
+  
 </script>
 </body>
 </html>
