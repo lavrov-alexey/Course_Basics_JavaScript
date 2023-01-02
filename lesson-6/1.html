@@ -43,11 +43,17 @@
   1. Установите всем элементам с классом "productName" размер шрифта 24px.
   */
   // находим все эл-ты с нужным классом
+  console.log('6.1.1. Устанавливаем всем эл-там с классом "productName" размер шрифта 24px через 3 секунды...');
   const productNamesEls = document.querySelectorAll('.productName');
-  if (productNamesEls) {
-    productNamesEls.forEach(productNamesEl => {
-    productNamesEl.style.fontSize = '24px';
-    });
+  if (productNamesEls) {  //если эл-ты нашлись
+    setTimeout(() => {
+      productNamesEls.forEach(productNamesEl => {
+        productNamesEl.style.fontSize = '24px';
+      });  
+    }, 2000);
+    console.info(`...по п.6.1.1. эл-там с классом "productName" шрифт изменен`);
+
+    // альтернативный forEach вариант
     //for (const productNamesEl of productNamesEls) {
     //  productNamesEl.style.fontSize = '24px';
     //};
@@ -58,11 +64,19 @@
   /*
   2. Установите всем элементам с классом "product" внешний отступ справа 50px.
   */
+  console.log('6.1.2. Устанавливаем всем эл-там с классом "product" внешний отступ справа 50px через 4 секунды...');
   const productEls = document.querySelectorAll('.product');
-  for (const productEl of productEls) {
-    productEl.style.marginRight = '50px';    
+  if (productEls) {  //если такие эл-ты нашлись
+    setTimeout(() => {
+      for (const productEl of productEls) {
+        productEl.style.marginRight = '50px';    
+      };
+    }, 4000);
+    console.info(`...по п.6.1.2. эл-там с классом "product" внешний отступ справа выставлен!`);
+  } else {
+    console.error('Упс... Элементов с классом "product" не нашлось!');
   }
-
+  
   /*
   3. При клике на кнопку "В корзину" название кнопки должно поменяться на
   "Добавлено" и кнопка должна стать неактивной.
@@ -74,6 +88,7 @@
       if (event.target.textContent = "В корзину") {
         event.target.textContent = 'Добавлено';  // меняем название кнопки
         event.target.disabled = 'true';  // деактивируем кнопку
+        console.info(`...по п.6.1.3. По нажатию кнопки "В корзину" - кнопка деактивирована и название изменено на "Добавлено"!`);
       }
     });
   });
@@ -86,7 +101,31 @@
   отображенный товар на странице на созданную копию. У данной копии также
   должен правильно работать код из 3-го задания.
   */
-
+  // ищем все эл-ты с классом product
+  const productClassEls = document.querySelectorAll('.product');  
+  if (productClassEls) {  // если эл-ты нашлись
+    // последний продукт
+    let lastProduct = productClassEls[productClassEls.length - 1];
+    // с ключом true - создаем глубокую копию 1го элемента
+    const deepCloneEl = productClassEls[0].cloneNode(true);
+    //находим тег картинки внутри нашей копии
+    const imgTagInto = deepCloneEl.querySelector('img');
+    console.log(`6.1.4. Глубокая копия эл-т с классом "product" создана.\
+    \n- ссылка на картинку до изменения: ${imgTagInto.src}`);
+    imgTagInto.src = 'https://loremflickr.com/200/300/goods?lock=37';
+    console.log(`- ссылка на картинку в копии изменена: ${imgTagInto.src}`);
+    console.log('- меняем название товара в копии на "Товар 4"');
+    deepCloneEl.children[0].innerText = 'Товар 4';
+    console.log('- последний товар заменяем нашей копией через 8 секунд...');
+    setTimeout(() => {
+      //теперь заменим последний эл-т нашим скопированным и измененным эл-том
+      //при этом размер шрифта останется старым и обработчика на кнопке не будет
+      lastProduct.replaceWith(deepCloneEl);
+      console.info('...по п.6.1.4. последний эл-т заменен');
+    }, 8000);        
+  } else {
+    console.error('Упс... Элемента с классом "product" не нашлось!');
+  }
 
   /*
   5. По истечении 2 секунд с момента открытия страницы первый товар должен быть
