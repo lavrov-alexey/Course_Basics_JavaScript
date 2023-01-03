@@ -67,12 +67,11 @@
   */
   const fromInput = document.querySelector('#from');  //ищем нужный input
   let spanInput = fromInput.nextElementSibling;  //для удобства заведем перем.
-  spanInput.textContent = 'Test';
   if (fromInput) {  //если нашли
     //добавляем обработчик на событие любого изменения (онлайн)
     //событие change - работает только при уходе из ввода
     fromInput.addEventListener('input', event => {
-      //любые изменения сразу копируем в input текст в span
+      //любые изменения в input - сразу копируем текст в span
       spanInput.textContent = event.target.value;
     });
   } else {
@@ -84,8 +83,17 @@
   message:
   1) добавить два класса: animate__animated и animate__fadeInLeftBig
   2) поставить данному элементу стиль visibility в значение 'visible'.
-   */
-
+  */
+  const msgBtn = document.querySelector('.messageBtn');  //ищем кнопку
+  const msgClassEl = document.querySelector('.message');  //и эл-т с кл. message
+  if (msgBtn) {
+    msgBtn.addEventListener('click', event => {
+      msgClassEl.classList.add('animate__animated', 'animate__fadeInLeftBig');
+      msgClassEl.style.visibility = 'visible';
+    });
+  } else {
+    console.error('Алярм! Кнопку с классом "messageBtn" сперли!');
+  }
 
   /*
   3. Необходимо при отправке формы проверить, заполнены ли все поля в этой
