@@ -105,8 +105,47 @@
   Если поле пустое, необходимо данное поле подсветить (поставить класс error
   данному полю).
   Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
-   */
+  */
+  //ищем все инпуты в нашей форме
+  const inputsEls = document.querySelectorAll('input, select');
+  //ищем кнопку с текстом "Отправить" среди всех кнопок, т.к. нет прямого 
+  //способа искать по тексту элемента
+  const btnEls = document.querySelectorAll('button');
+  let btnSubmit = null;
+  for (const currBtn of btnEls) {
+    if (currBtn.textContent === 'Отправить') {
+      btnSubmit = currBtn;  //кнопка "Отправить" - найдена
+      break;
+    }
+  }
 
+  //вешаем на нажатие кнопки "Отправить" обработчик
+  btnSubmit.addEventListener('click', event => {
+    let isFullInputs = true;
+    for (const inputEl of inputsEls) {
+      if (inputEl.value === '') {
+        isFullInputs = false;  //ставим признак, что не все поля заполнены
+        inputEl.classList.add('error');
+      }
+    };
+    
+    if (!isFullInputs) {  //если не все поля формы заполнены 
+      //отменяем действия по-умолчанию (отправку данных формы)
+      event.preventDefault();
+    };
+  });
+
+  //вешаем обработчики на любые изменения на все input формы
+  for (const inputEl of inputsEls) {
+    inputEl.addEventListener('input', event => {
+      //если ввод пуст - подсветить (класс error), если нет - убрать
+      if (event.target.value === '') {
+        event.target.classList.add('error');
+      } else {
+        event.target.classList.remove('error');        
+      };
+    });
+  }
 
 </script>
 </body>
