@@ -37,12 +37,36 @@
   1. При наведении на любую из звезд, данной звезде должен ставиться класс
   golden, также такой класс должен ставиться всем звездам до нее слева.
   */
-
+  const starsArr = document.querySelectorAll('.fa-star');  //находим все звезды
+  starsArr.forEach((star, idxStar) => {
+    //проставим для каждой звезды в виде id ее индекс в массиве звезд
+    star.id = idxStar;
+    //и повесим на каждую звезду обработчик на наведение курсора
+    star.addEventListener('mouseover', (event) => {
+      const star = event.target;  //для удобства - заведем переменные для звезды
+      const idxStar = +event.target.id;  //и ее индекса (делаем число "+")
+      //для звезд с индексом не больше, чем у целевой - проставляем класс golden
+      for (let idx = 0; idx <= idxStar; idx++) {
+        starsArr[idx].classList.add('golden');
+      }
+    });
+  });
 
   /*
   2. Когда мы уводим курсор мыши от звезды, все поставленные классы из первого
   задания должны быть удалены.
-   */
+  */
+  starsArr.forEach(star => {
+    //вешаем для всех звезд обработчик на уход курсора
+    star.addEventListener('mouseout', event => {
+      const star = event.target;  //для удобства - заведем переменные для звезды
+      const idxStar = +event.target.id;  //и ее индекса (делаем число "+")
+      //для звезд с индексом не больше, чем у целевой - удаляем класс golden
+      for (let idx = 0; idx <= idxStar; idx++) {
+        starsArr[idx].classList.remove('golden');
+      }
+    });
+  });
 
 
   /*
@@ -50,8 +74,20 @@
   звезды (временно могут становиться черными). Почему так? Напишите словами.
   Можем ли мы это исправить? Если да, то предложите решение.
   */
+  /*При переводе мыши от одной звезды к другой происходит видимое мигание звезд, поскольку при уходе с одной звезды сначала срабатывает обработчик события ухода курсора и они становятся черными, а потом срабатывает обработчик события наведения на другую звезду и звезды опять перекрашиваются в золотой*/
+  const starsCont = document.querySelector('.stars_container');
+  
+  starsCont.addEventListener('mouseover', event => {
+    if (event.target === starsCont) {
+      console.log('Зашли в контейнер');
+    };
+  });
 
-
+  starsCont.addEventListener('mouseout', event => {
+    if (event.target === starsCont) {
+      console.log('Ушли из контейнера');
+    };
+  });
 </script>
 </body>
 </html>
