@@ -106,46 +106,50 @@
   данному полю).
   Если поле было чем-либо заполнено, подсветку (класс error) необходимо убрать.
   */
+  
+  const formEl = document.querySelector('form');  //находим эл-т "форма"
   //ищем все инпуты в нашей форме
-  const inputsEls = document.querySelectorAll('input, select');
-  //ищем кнопку с текстом "Отправить" среди всех кнопок, т.к. нет прямого 
-  //способа искать по тексту элемента
-  const btnEls = document.querySelectorAll('button');
-  let btnSubmit = null;
-  for (const currBtn of btnEls) {
-    if (currBtn.textContent === 'Отправить') {
-      btnSubmit = currBtn;  //кнопка "Отправить" - найдена
-      break;
-    }
-  }
-
-  //вешаем на нажатие кнопки "Отправить" обработчик
-  btnSubmit.addEventListener('click', event => {
+  const inputsEls = formEl.querySelectorAll('.form-control');
+    
+  //вешаем на событие на ней "отправка" обработчик
+  formEl.addEventListener('submit', event => {
     let isFullInputs = true;
     for (const inputEl of inputsEls) {
       if (inputEl.value === '') {
         isFullInputs = false;  //ставим признак, что не все поля заполнены
         inputEl.classList.add('error');
+        console.error(`Не заполнено поле: ${inputEl.localName}`);
       }
-    };
+    }
     
     if (!isFullInputs) {  //если не все поля формы заполнены 
       //отменяем действия по-умолчанию (отправку данных формы)
       event.preventDefault();
-    };
+    } else { 
+      console.info('Все поля формы заполнены - форма отправляется!');
+      //formEl.submit(); //все поля заполнены - отправляем форму
+    }
   });
 
-  //вешаем обработчики на любые изменения на все input формы
-  for (const inputEl of inputsEls) {
-    inputEl.addEventListener('input', event => {
-      //если ввод пуст - подсветить (класс error), если нет - убрать
-      if (event.target.value === '') {
-        event.target.classList.add('error');
-      } else {
-        event.target.classList.remove('error');        
-      };
-    });
-  }
+  //чтобы не вешать обработчики на изменения на все input формы - можно повесить обработчик на саму форму и при изменении любого эл-та в ней - будем ловить события при всплытии (делегируем обработку родителю)
+  formEl.addEventListener('input', event => {
+    const evTrg = event.target;  //для краткости
+    //если изменение происходит не с эл-том формы (нет класса form-control)
+    if (!evTrg.classList.contains('form-control')) {
+      return;  //то ничего не делаем
+    }
+
+    //если ввод пуст - подсветить (класс error), если нет - убрать
+    // if (evTrg.value === '') {
+    //     evTrg.classList.add('error');
+    //   } else {
+    //     evTrg.classList.remove('error');        
+    //   }
+    
+    evTrg.value === ''  // аналогично, но через тернарный оператор - короче
+      ? evTrg.classList.add('error')
+      : evTrg.classList.remove('error')
+  });
 
 </script>
 </body>

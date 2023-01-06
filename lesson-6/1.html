@@ -45,22 +45,18 @@
   // находим все эл-ты с нужным классом
   console.log('6.1.1. Устанавливаем всем эл-там с классом "productName" размер шрифта 24px через 1 секунду...');
   const productNamesEls = document.querySelectorAll('.productName');
-  if (productNamesEls) {  //если эл-ты нашлись
-    setTimeout(() => {
-      productNamesEls.forEach(productNamesEl => {
-        productNamesEl.style.fontSize = '24px';
-      });  
-    }, 1000);
-    console.info(`...по п.6.1.1. эл-там с классом "productName" шрифт изменен`);
+  setTimeout(() => {
+    productNamesEls.forEach(productNamesEl => {
+      productNamesEl.style.fontSize = '24px';
+    });  
+  }, 1000);
+  console.info(`...по п.6.1.1. эл-там с классом "productName" шрифт изменен`);
 
-    // альтернативный forEach вариант
-    //for (const productNamesEl of productNamesEls) {
-    //  productNamesEl.style.fontSize = '24px';
-    //};
-  } else {
-    console.error('Упс... Элементов с классом "productName" не нашлось!');
-  }
-
+  // альтернативный forEach вариант
+  //for (const productNamesEl of productNamesEls) {
+  //  productNamesEl.style.fontSize = '24px';
+  //};
+  
   /*
   2. Установите всем элементам с классом "product" внешний отступ справа 50px.
   */
@@ -81,16 +77,14 @@
   3. При клике на кнопку "В корзину" название кнопки должно поменяться на
   "Добавлено" и кнопка должна стать неактивной.
   */
-  const butttonEls = document.querySelectorAll('button');
-  butttonEls.forEach(buttonEl => {  // находим все кнопки
-    buttonEl.addEventListener('click', (event) => {
-      // проверяем, что это кнопка именно "В корзину"
-      if (event.target.textContent = "В корзину") {
-        event.target.textContent = 'Добавлено';  // меняем название кнопки
-        event.target.disabled = 'true';  // деактивируем кнопку
-        console.info(`...по п.6.1.3. По нажатию кнопки "В корзину" - кнопка деактивирована и название изменено на "Добавлено"!`);
-      }
-    });
+  //чтобы не вешать обработчик событий на каждую кнопку - вешаем сразу на родителя (document) и смотрим, чтобы нажатие было именно на кнопку с надписью "В корзину"
+  document.addEventListener('click', event => {
+    const evTrg = event.target;  //для краткости
+    if (evTrg.nodeName === 'BUTTON' && evTrg.textContent === "В корзину") {
+      evTrg.textContent = 'Добавлено';  // меняем название кнопки
+      evTrg.disabled = 'true';  // деактивируем кнопку
+      console.info(`...по п.6.1.3. По нажатию кнопки "В корзину" - кнопка деактивирована и название изменено на "Добавлено"!`);
+    }
   });
 
   /*
@@ -103,42 +97,41 @@
   */
   // ищем все эл-ты с классом product
   const productClassEls = document.querySelectorAll('.product');  
-  if (productClassEls) {  // если эл-ты нашлись
-    // последний продукт
-    let lastProduct = productClassEls[productClassEls.length - 1];
-    // с ключом true - создаем глубокую копию 1го элемента
-    const deepCloneEl = productClassEls[0].cloneNode(true);
-    //находим тег картинки внутри нашей копии
-    const imgTagInto = deepCloneEl.querySelector('img');
-    console.log(`6.1.4. Глубокая копия эл-т с классом "product" создана.\
-    \n- ссылка на картинку до изменения: ${imgTagInto.src}`);
-    imgTagInto.src = 'https://loremflickr.com/200/300/goods?lock=37';
-    console.log(`- ссылка на картинку в копии изменена: ${imgTagInto.src}`);
-    console.log('- меняем название товара в копии на "Товар 4"');
-    deepCloneEl.children[0].innerText = 'Товар 4';
-    console.log('- последний товар заменяем нашей копией через 5 секунд...');
-    setTimeout(() => {
-      //теперь заменим последний эл-т нашим скопированным и измененным эл-том
-      //при этом размер шрифта останется старым и обработчика на кнопке не будет
-      lastProduct.replaceWith(deepCloneEl);
-      console.info('...по п.6.1.4. последний эл-т заменен');
-    }, 5000);        
-  } else {
-    console.error('Упс... Элемента с классом "product" не нашлось!');
-  }
+  // выделяем последний продукт
+  let lastProduct = productClassEls[productClassEls.length - 1];
+  //чтобы не искать все продукты (их может быть много) - можно сразу находить самый последний написав правильный queryselector '.product:last-of-type'
 
+  // с ключом true - создаем глубокую копию 1го элемента
+  const deepCloneEl = productClassEls[0].cloneNode(true);
+  //находим тег картинки внутри нашей копии
+  const imgTagInto = deepCloneEl.querySelector('img');
+  console.log(`6.1.4. Глубокая копия эл-т с классом "product" создана.\
+  \n- ссылка на картинку до изменения: ${imgTagInto.src}`);
+  imgTagInto.src = 'https://loremflickr.com/200/300/goods?lock=37';
+  console.log(`- ссылка на картинку в копии изменена: ${imgTagInto.src}`);
+  console.log('- меняем название товара в копии на "Товар 4"');
+  deepCloneEl.children[0].innerText = 'Товар 4';
+  console.log('- последний товар заменяем нашей копией через 5 секунд...');
+  setTimeout(() => {
+    //теперь заменим последний эл-т нашим скопированным и измененным эл-том
+    //при этом размер шрифта останется старым, т.к. клонируем до изменения с задержкой, а обработчик на кнопке будет работать, т.к. мы событие вешали не на каждую кнопку, а на их родителя (document)
+    lastProduct.replaceWith(deepCloneEl);
+    console.info('...по п.6.1.4. последний эл-т заменен');
+  }, 5000);        
+  
   /*
   5. По истечении 2 секунд с момента открытия страницы первый товар должен быть
   удален из html.
   */
   console.log('6.1.5. Первый товар будет удален через 2 секунды после открытия страницы...');
-  window.onload = () => {  //ждем полной загрузки страницы по ТЗ
-    setTimeout(() => {  //и через 2 сек. удаляем 1й эл-т
-    productClassEls[0].remove();
+  //ждем полной загрузки страницы и всех ресурсов по ТЗ
+  window.addEventListener('load', () => {
+    setTimeout(() => {  //и через 2 сек. (по ТЗ) удаляем 1й эл-т
+      productClassEls[0].remove();
     }, 2000);
    console.info('...по п.6.1.5. первый товар удален'); 
-  };
-  
+  });
+    
 </script>
 </body>
 </html>
