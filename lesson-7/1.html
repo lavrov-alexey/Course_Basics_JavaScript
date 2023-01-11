@@ -60,6 +60,21 @@
     H99: "Однако, программирование, в итоге, принесет свои плоды.",
   };
 
+  const navCont = document.querySelector('.nav-tabs');  //контейнер с табами
+  
+  //вешаем обработчик на контейнер с табуляторами
+  navCont.addEventListener('click', ev => {
+    const trg = ev.target;
+    //если кликнули не на табуляторе или на уже активном табе - не наша тема
+    if (!trg.classList.contains('nav-link') 
+      && trg.classList.contains('active')) return;
+
+    //убираем активность у текущего активного табулятора
+    navCont.querySelector('.active').classList.remove('active');
+    trg.classList.add('active');  //проставляем кликнутому табулятору активность
+  });
+  
+
 
   /*
   2. Необходимо сделать так, чтобы при изменении input'а менялся и размер шрифта
