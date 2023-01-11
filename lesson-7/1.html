@@ -61,6 +61,7 @@
   };
 
   const navCont = document.querySelector('.nav-tabs');  //контейнер с табами
+  const divTextEl = document.querySelector('.text');  //div с текстом
   
   //вешаем обработчик на контейнер с табуляторами
   navCont.addEventListener('click', ev => {
@@ -74,8 +75,14 @@
     trg.classList.add('active');  //проставляем кликнутому табулятору активность
   });
   
-
-
+  // divTextEl.textContent = JSON.stringify(panelText);  // простой вариант
+  // вариант с более красивым выводом
+  let panelTextToStr = '';
+  for (const nameProp in panelText) {
+    panelTextToStr += `<p>${nameProp}: ${panelText[nameProp]}</p>`
+  }
+  divTextEl.innerHTML = panelTextToStr;  //выводим результат в текст. блок
+  
   /*
   2. Необходимо сделать так, чтобы при изменении input'а менялся и размер шрифта
   у элемента с id="inputDiv". Перемещение ползунка должно плавно увеличивать
