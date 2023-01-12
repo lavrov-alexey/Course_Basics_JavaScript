@@ -61,7 +61,6 @@
   };
 
   const navCont = document.querySelector('.nav-tabs');  //контейнер с табами
-  const divTextEl = document.querySelector('.text');  //div с текстом
   
   //вешаем обработчик на контейнер с табуляторами
   navCont.addEventListener('click', ev => {
@@ -75,9 +74,14 @@
     trg.classList.add('active');  //проставляем кликнутому табулятору активность
   });
   
-  // divTextEl.textContent = JSON.stringify(panelText);  // простой вариант
-  // вариант с более красивым выводом
-  let panelTextToStr = '';
+  const divTextEl = document.querySelector('.text');  //div с текстом
+
+  //По-хорошему, для своего объекта нужно переопределить метод Obj.toString, 
+  // но т.к. задача учебная и объект константный, то смысла нет
+  // 1. Простой вариант конверсии объекта в строку
+  // divTextEl.textContent = JSON.stringify(panelText);
+  // 2. Вариант с более красивым построчным выводом свойств и значений объекта
+  let panelTextToStr = '';  //сюда будем собирать текст с версткой html
   for (const nameProp in panelText) {
     panelTextToStr += `<p>${nameProp}: ${panelText[nameProp]}</p>`
   }
@@ -88,8 +92,14 @@
   у элемента с id="inputDiv". Перемещение ползунка должно плавно увеличивать
   шрифт у текста, никакого резкого увеличения шрифта не должно быть при
   перетаскивании ползунка.
-   */
+  */
 
+  const inpEl = document.querySelector('input');
+  const inpDivEl = document.querySelector('#inputDiv');
+  //слушаем изменение input и значение ползунка пишем в размер шрифта текста
+  inpEl.addEventListener('input', event => {
+    inpDivEl.style.fontSize = `${event.target.value}px`;
+  });
 
 </script>
 </body>
