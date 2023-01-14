@@ -25,7 +25,15 @@
    * параметр "n"
    */
   function descendingOrder(n) {
+    //1 вариант через преобразование числа в строку и потом - в массив символов
+    const arrayFromNumber = Array.from(String(n));
+    //2 вариант через разбивку числа на символы через метод split строки
+    // const arrayFromNumber = String(n).split('');
 
+    //применяем к массиву из цифр числа сортировку по убыванию цифр
+    arrayFromNumber.sort((a, b) => b - a);
+    //возвращаем сшитое из отсортированных цифр число, преобразовав из строки
+    return Number(arrayFromNumber.join(''));
   }
 
   console.log(descendingOrder(42145)); // 54421
