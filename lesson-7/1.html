@@ -61,32 +61,29 @@
   };
 
   const navCont = document.querySelector('.nav-tabs');  //контейнер с табами
-  
+  const divTextEl = document.querySelector('.text');  //div с текстом
+  //находим текущий (при старте страницы) активный эл-т
+  let activeEl = navCont.querySelector('.active');
+
   //вешаем обработчик на контейнер с табуляторами
   navCont.addEventListener('click', ev => {
     const trg = ev.target;
     //если кликнули не на табуляторе или на уже активном табе - не наша тема
     if (!trg.classList.contains('nav-link') 
-      && trg.classList.contains('active')) return;
+      || trg.classList.contains('active')) return;
 
-    //убираем активность у текущего активного табулятора
-    navCont.querySelector('.active').classList.remove('active');
+    //убираем активность у активного табулятора на момент клика
+    activeEl.classList.remove('active');
     trg.classList.add('active');  //проставляем кликнутому табулятору активность
-  });
-  
-  const divTextEl = document.querySelector('.text');  //div с текстом
+    activeEl = trg;  //запоминаем новый текущий активный табулятор
 
-  //По-хорошему, для своего объекта нужно переопределить метод Obj.toString, 
-  // но т.к. задача учебная и объект константный, то смысла нет
-  // 1. Простой вариант конверсии объекта в строку
-  // divTextEl.textContent = JSON.stringify(panelText);
-  // 2. Вариант с более красивым построчным выводом свойств и значений объекта
-  let panelTextToStr = '';  //сюда будем собирать текст с версткой html
-  for (const nameProp in panelText) {
-    panelTextToStr += `<p>${nameProp}: ${panelText[nameProp]}</p>`
-  }
-  divTextEl.innerHTML = panelTextToStr;  //выводим результат в текст. блок
-  
+    // меняем текст в соответствии data-set кликнутой вкладки на
+    // соответствующий ей текст из одноименного свойства в объекте с текстами
+    const propName = trg.parentElement.dataset.text;  //находим имя свойства
+    divTextEl.textContent = panelText[propName]; //сопоставляем текст из объекта
+  });
+
+
   /*
   2. Необходимо сделать так, чтобы при изменении input'а менялся и размер шрифта
   у элемента с id="inputDiv". Перемещение ползунка должно плавно увеличивать
@@ -96,6 +93,9 @@
 
   const inpEl = document.querySelector('input');
   const inpDivEl = document.querySelector('#inputDiv');
+  /*Т.к. у нас размер шрифта текста изначально не прописан в самом теге, а задается через css-стили, то размер шрифта нужно получать через метод getComputedStyle, которому передается объект - в ответ выдается объект со всеми вычисляемыми стилями и из него уже берем нужное нам*/
+  inpEl.value = Number.parseInt(getComputedStyle(inpDivEl).fontSize);
+  
   //слушаем изменение input и значение ползунка пишем в размер шрифта текста
   inpEl.addEventListener('input', event => {
     inpDivEl.style.fontSize = `${event.target.value}px`;

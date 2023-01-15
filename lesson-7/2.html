@@ -82,8 +82,9 @@
     if (!event.target.classList.contains('menuButton')) {
       return;
     }
+    /*джойн в конце нужен, чтобы при передаче в innerHTML убрать запятые, которые добавляются автоматом при преобразовании массива в строку*/
     productsEl.innerHTML = products[event.target.dataset.type]
-      .map(product => product.getProductMarkup());
+      .map(product => product.getProductMarkup()).join('');
   });
 
 </script>
