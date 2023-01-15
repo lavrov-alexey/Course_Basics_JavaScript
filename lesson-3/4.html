@@ -45,7 +45,7 @@
   ];
 
   console.log('Исходный список products:');
-  products.forEach(product, idx => console.log(idx, product));
+  products.forEach((product, idx) => console.log(idx, product));
 
   // Создадим список продуктов с фотографиями
   const prodsWPhotos = products.filter(product => product.photos?.length > 0);
