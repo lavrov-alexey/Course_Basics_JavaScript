@@ -19,8 +19,12 @@ document.querySelector('span.cartIconWrap').addEventListener('click', ev => {
 
 //вешаем обработчик клика на контейнер с товарами
 feturedCont.addEventListener('click', ev => {
-    // если клик не на кнопке в товаре - ничего не делаем
-    if (!ev.target.classList.contains('addToCart')) return;
+    // если клик не на кнопке добавления в корзину или на эл-те, у которого
+    // ближайший родидель не эта кнопка (метод closest) - уходим
+    if (!ev.target.closest('.addToCart')) {
+        return;
+    }
+    
     // увеличиваем счетчик на корзине
     cartCountEl.textContent = +cartCountEl.textContent + 1;
 
