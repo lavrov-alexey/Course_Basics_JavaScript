@@ -2,10 +2,23 @@
 
 const cartWindowEl = document.querySelector('.cart');  // окно корзины
 // счетчик над корзиной - ищем сначала эл-т с классом cartIconWrap и в нем span
-const cartCountEl = document.querySelector('.cartIconWrap span');
-// при загрузке страницы - счетчик изначально обнуляем
-cartCountEl.textContent = '0';
-const cartObj = {};
+const cartCounterEl = document.querySelector('.cartIconWrap span');
+
+class Cart {
+    totalCount = 0;
+    totalSum = 0;
+
+    add (prodId, prodName, prodPrice, prodCount = 1) {
+        if (!(prodId in this)) {  // если товара в корзине еще нет - добавляем
+            this[prodId] = {prodId, prodName, prodPrice, prodCount: 0};
+        }
+        this[prodId].prodCount += prodCount;  // увеличиваем кол-во товара
+        this.totalCount += prodCount;  // и общего кол-ва товара в корзине
+        this.totalSum += prodPrice * prodCount;  // и общей суммы корзины
+    }
+}
+
+const cartObj = new Cart();  // создаем заготовку объекта корзины с товарами
 
 // контейнер с товарами
 const feturedCont = document.querySelector('div.featuredItems');
@@ -20,12 +33,18 @@ document.querySelector('span.cartIconWrap').addEventListener('click', ev => {
 //вешаем обработчик клика на контейнер с товарами
 feturedCont.addEventListener('click', ev => {
     // если клик не на кнопке добавления в корзину или на эл-те, у которого
-    // ближайший родидель не эта кнопка (метод closest) - уходим
+    // нет в родителях этой кнопки (метод closest) - уходим
     if (!ev.target.closest('.addToCart')) {
         return;
     }
     
     // увеличиваем счетчик на корзине
-    cartCountEl.textContent = +cartCountEl.textContent + 1;
+    cartCounterEl.textContent = +cartCounterEl.textContent + 1;
+
+    // находим эл-т с кликнутым товаром
+    const prodData = ev.target.closest('.featuredItem').dataset;
+
+    cartObj.add(prodData.id, prodData.name, prodData.price);
+    console.log(cartObj);
 
 });
