@@ -17,20 +17,28 @@ class Cart {
     }
 
     // добавляет товар в корзину и обновляет счетчик и сумму товаров
-    addProduct(id, name, price, count = 1) {
+    addProduct(id, name, price, count) {
         // если товара в корзине еще нет - добавляем
         if (!(id in this.products)) {  
-            this.products[id] = {id, name, price, count: 0};
+            const newProdInCartEl = document.createElement('div');
+            this.products[id] = {id, name, price, count, 
+                prodRowEl: newProdInCartEl};
+            newProdInCartEl.innerHTML = this._getHtmlProductRow(id);
+            this.prodsEl.appendChild(newProdInCartEl);
         }
         this.products[id].count += count;  // увеличиваем кол-во товара
+        
+       продолжаем здесь
+        
+
         // формируем и сохраняем html-строку для товара в корзине
         this.products[id].html = this._getHtmlProductRow(id);
         this.totalCount += count;  // обновляем общее кол-во товара в корзине
         this.totalSum += price * count;  // и общую сумму всех товаров в корзине
         // увеличиваем счетчик на корзине
-        this.counterEl.textContent = +cartObj.counterEl.textContent + 1;
+        this.counterEl.textContent = +this.totalCount + 1;
         // обновляем общую сумму всех товаров в корзине
-        this.totalSumEl.textContent = cartObj.totalSum.toFixed(2);
+        this.totalSumEl.textContent = this.totalSum.toFixed(2);
     }
 
     // формирует html-код строки продукта корзины с переданным id
@@ -65,7 +73,6 @@ const cartObj = new Cart();  // создаем объект корзины дл�
 
 // контейнер с товарами
 const prodsCont = document.querySelector('div.featuredItems');
-const productEls = prodsCont.children;  // массив товаров на текущей странице
 
 // вешаем обработчик на клик по иконке корзины
 document.querySelector('span.cartIconWrap').addEventListener('click', ev => {
@@ -85,7 +92,7 @@ prodsCont.addEventListener('click', ev => {
     // находим эл-т с кликнутым товаром
     const prodData = ev.target.closest('.featuredItem').dataset;
     // добавляем в корзину данные о товаре
-    cartObj.addProduct(prodData.id, prodData.name, prodData.price);
+    cartObj.addProduct(prodData.id, prodData.name, prodData.price, 1);
     // отрисовываем корзину с товарами
     cartObj.showProdsCart();
 });
